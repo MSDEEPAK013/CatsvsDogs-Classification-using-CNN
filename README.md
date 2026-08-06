@@ -53,7 +53,7 @@ Later fine-tuned by unfreezing the top ~30 layers of MobileNetV2 with a very low
 |---|---|
 | `padding='same'` over `'valid'` | Keeps spatial dimensions predictable across blocks and avoids losing edge information, since MaxPooling already handles downsampling |
 | `Flatten()` before the dense head | Preserves full spatial feature detail going into the classifier; worked well here paired with the pretrained MobileNetV2 backbone and dropout to control overfitting |
-| `BatchNormalization` after every Conv/Dense layer it stabilizes the distribution of activations between layers, allows higher learning rates, smooths the loss landscape |
+| `BatchNormalization` after every Conv/Dense layer | Stabilizes the distribution of activations between layers, allows higher learning rates, smooths the loss landscape |
 | `Dropout` after Dense layers | Prevents co-adapted neurons and overfitting; rates graduated (0.4) rather than flat 0.5 across all layers |
 | `ReduceLROnPlateau` + `EarlyStopping` | Detects and corrects learning rate instability mid-training, and stops once validation loss stops improving, restoring best weights |
 | Transfer learning (MobileNetV2) | Faster convergence and higher accuracy ceiling than training from scratch on a moderate-sized dataset; also relevant for edge/embedded deployment given lightweight architecture |
